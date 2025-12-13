@@ -5,7 +5,7 @@ A production-grade Retrieval-Augmented Generation (RAG) system designed to answe
 ## Project Overview
 
 This system implements a local RAG pipeline that processes three cybersecurity standards documents:
-- OWASP Top 10 (2021)
+- OWASP Top 10
 - Thailand Web Security Standard (2025)
 - MITRE ATT&CK Design & Philosophy (2020)
 
