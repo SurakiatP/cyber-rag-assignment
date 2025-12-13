@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  rag-api:
+    build: .
+    container_name: cyber-rag-app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./dataset:/app/dataset
+      - ./database:/app/database
+      - ./output:/app/output
+      - ./.env:/app/.env
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+    env_file:
+      - .env
+    depends_on:
+      - ollama
+    networks:
+      - rag-network
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: cyber-rag-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_storage:/root/.ollama
+    networks:
+      - rag-network
+
+networks:
+  rag-network:
+    driver: bridge
+
+volumes:
+  ollama_storage:
