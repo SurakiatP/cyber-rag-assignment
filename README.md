@@ -1,6 +1,6 @@
 # Cybersecurity RAG Assistant
 
-A production-grade Retrieval-Augmented Generation (RAG) system designed to answer cybersecurity questions using only provided dataset documents. Built with hybrid search, multilingual support (Thai/English), and strict grounding enforcement to prevent hallucinations.
+Retrieval-Augmented Generation (RAG) system designed to answer cybersecurity questions using only provided dataset documents. Built with hybrid search, multilingual support (Thai/English), and strict grounding enforcement to prevent hallucinations.
 
 ## Project Overview
 
@@ -78,23 +78,54 @@ For detailed technical information, please refer to:
 ### Prerequisites
 
 - Docker Desktop installed and running
+  - **Windows**: [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
+  - **macOS**: [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
+  - **Linux**: [Docker Engine](https://docs.docker.com/engine/install/) + [Docker Compose](https://docs.docker.com/compose/install/)
 - 8GB RAM minimum (16GB recommended)
 - 10GB free disk space
 
 ### Quick Start
 
 **Step 1: Clone and Navigate**
+
+Linux / macOS:
 ```bash
 git clone https://github.com/SurakiatP/cyber-rag-assignment.git
 cd cyber-rag-assignment
 ```
 
+Windows (Command Prompt):
+```cmd
+git clone https://github.com/SurakiatP/cyber-rag-assignment.git
+cd cyber-rag-assignment
+```
+
+Windows (PowerShell):
+```powershell
+git clone https://github.com/SurakiatP/cyber-rag-assignment.git
+cd cyber-rag-assignment
+```
+
 **Step 2: Copy Environment Configuration**
+
+Linux / macOS:
 ```bash
 cp .env.example .env
 ```
 
+Windows (Command Prompt):
+```cmd
+copy .env.example .env
+```
+
+Windows (PowerShell):
+```powershell
+Copy-Item .env.example .env
+```
+
 **Step 3: Start Docker Services**
+
+All platforms:
 ```bash
 docker-compose up -d
 ```
@@ -105,6 +136,8 @@ This will automatically:
 - Process documents and create indexes (~6-8 minutes on first run)
 
 **Step 4: Monitor Startup Progress**
+
+All platforms:
 ```bash
 docker-compose logs -f rag-api
 ```
@@ -115,7 +148,10 @@ INFO: Database loaded successfully.
 INFO: Application startup complete.
 ```
 
-Press `Ctrl+C` to exit logs (services continue running in background).
+Exit logs:
+- **Linux / macOS / Windows**: Press `Ctrl+C`
+
+Services continue running in background.
 
 **Step 5: Access Interactive API Documentation**
 
@@ -132,7 +168,7 @@ In the Swagger UI:
 3. Replace the example with:
 ```json
 {
-  "question": "What is the difference between a Tactic and a Technique in MITRE ATT&CK?"
+  "question": "What is Broken Access Control according to OWASP?"
 }
 ```
 4. Click **"Execute"**
@@ -141,56 +177,31 @@ In the Swagger UI:
 Expected response format:
 ```json
 {
-  "answer": "Tactics represent the ‘why’ of an ATT&amp;CK technique or sub-technique. It is the adversary’s tactical objective: the reason for performing an action [Source: mitre-attack-philosophy-2020.pdf, Page: 8b]. Techniques, on the other hand, describe the means by which adversaries achieve tactical goals [Source: mitre-attack-philosophy-2020.pdf, Page: 1b].  Essentially, tactics are the goals, and techniques are the methods to achieve those goals [Source: mitre-attack-philosophy-2020.pdf, Page: 9b].",
-  "expanded_query": "What is the difference between a Tactic and a Technique in MITRE ATT&CK? การแทรกซึม, Tactic, Technique, MITRE ATT&CK, tactic, technique, attack techniques, MITRE ATT&CK framework",
-  "retrieved_docs": [
-    {
-      "source": "mitre-attack-philosophy-2020.pdf",
-      "page": "8b",
-      "score": "N/A"
-    },
-    {
-      "source": "mitre-attack-philosophy-2020.pdf",
-      "page": "1b",
-      "score": "N/A"
-    },
-    {
-      "source": "mitre-attack-philosophy-2020.pdf",
-      "page": "6b",
-      "score": "N/A"
-    },
-    {
-      "source": "mitre-attack-philosophy-2020.pdf",
-      "page": "25b",
-      "score": "N/A"
-    },
-    {
-      "source": "mitre-attack-philosophy-2020.pdf",
-      "page": "1b",
-      "score": "N/A"
-    },
-    {
-      "source": "mitre-attack-philosophy-2020.pdf",
-      "page": "3a",
-      "score": "N/A"
-    },
-    {
-      "source": "mitre-attack-philosophy-2020.pdf",
-      "page": "9b",
-      "score": "N/A"
-    }
-  ],
-  "processing_time": 435.9
+  "answer": "Broken Access Control occurs when... [Source: owasp-top-10.pdf, Page: 5]",
+  "processing_time": 8.2
 }
 ```
 
 ### Alternative: Command Line Testing
 
-If you prefer using curl instead of the browser:
+Linux / macOS:
 ```bash
 curl -X POST http://localhost:8000/chat \
   -H "Content-Type: application/json" \
-  -d '{"question": "What is the difference between a Tactic and a Technique in MITRE ATT&CK?"}'
+  -d '{"question": "What is Broken Access Control according to OWASP?"}'
+```
+
+Windows (PowerShell):
+```powershell
+Invoke-RestMethod -Uri "http://localhost:8000/chat" `
+  -Method POST `
+  -ContentType "application/json" `
+  -Body '{"question": "What is Broken Access Control according to OWASP?"}'
+```
+
+Windows (Command Prompt with curl):
+```cmd
+curl -X POST http://localhost:8000/chat -H "Content-Type: application/json" -d "{\"question\": \"What is Broken Access Control according to OWASP?\"}"
 ```
 
 ### Useful Docker Commands
@@ -313,8 +324,9 @@ docker-compose up -d
 ## Author
 
 **Surakiat Kansa-ard (Park)**
+
+- LinkedIn: [Surakiat Kansa-ard](https://www.linkedin.com/in/surakiat-kansa-ard-171942351/)
 - GitHub: [SurakiatP](https://github.com/SurakiatP)
-- LinkedIn: [surakiat-kansa-ard](https://www.linkedin.com/in/surakiat-kansa-ard-171942351/)
 
 ## Assignment Compliance
 
