@@ -7,7 +7,7 @@ Retrieval-Augmented Generation (RAG) system designed to answer cybersecurity que
 This system implements a local RAG pipeline that processes three cybersecurity standards documents:
 - OWASP Top 10
 - Thailand Web Security Standard (2025)
-- MITRE ATT&CK Design & Philosophy (2020)
+- MITRE Attack Philosophy (2020)
 
 The system uses advanced document processing including OCR for Thai language PDFs, hybrid retrieval combining keyword and semantic search, and cross-encoder reranking to provide accurate, citation-backed answers.
 
