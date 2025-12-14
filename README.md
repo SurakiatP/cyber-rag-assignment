@@ -131,9 +131,13 @@ docker-compose up -d
 ```
 
 This will automatically:
-- Download Ollama and pull Gemma 3:4b model (~2GB, 3-5 minutes)
+- Start Ollama service
+- Auto-download Gemma 3:4b model (~2GB) on first run via healthcheck
 - Build the RAG API container
+- Download embedding models (BAAI/bge-m3 ~1GB, bge-reranker-v2-m3 ~600MB)
 - Process documents and create indexes (~6-8 minutes on first run)
+
+**Note:** First startup takes 8-12 minutes due to model downloads. Subsequent startups are faster (10-20 seconds).
 
 **Step 4: Monitor Startup Progress**
 
@@ -142,7 +146,19 @@ All platforms:
 docker-compose logs -f rag-api
 ```
 
-Wait until you see:
+To monitor model download progress (optional):
+```bash
+# Monitor Ollama pulling gemma3:4b
+docker-compose logs -f ollama
+
+# You should see:
+# pulling manifest
+# pulling model gemma3:4b...
+# ████████████████ 100%
+# success
+```
+
+Wait until you see in rag-api logs:
 ```
 INFO: Database loaded successfully.
 INFO: Application startup complete.
@@ -296,10 +312,26 @@ docker-compose logs rag-api
 # Increase Docker memory limit to 8GB+
 ```
 
-**Issue: Ollama model not found**
+**Issue: Model download taking too long**
 ```bash
-# Manually pull model
+# Check Ollama healthcheck progress
+docker-compose logs -f ollama
+
+# The healthcheck automatically pulls gemma3:4b on first run
+# This can take 3-5 minutes depending on internet speed
+
+# To verify model is downloaded:
+docker exec cyber-rag-ollama ollama list
+```
+
+**Issue: API returns 404 model not found**
+```bash
+# This means healthcheck hasn't completed yet
+# Wait for healthcheck to finish, or manually pull:
 docker exec cyber-rag-ollama ollama pull gemma3:4b
+
+# Then restart rag-api:
+docker-compose restart rag-api
 ```
 
 **Issue: Index not found**
