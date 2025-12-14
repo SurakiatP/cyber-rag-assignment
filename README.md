@@ -168,7 +168,7 @@ In the Swagger UI:
 3. Replace the example with:
 ```json
 {
-  "question": "What is Broken Access Control according to OWASP?"
+  "question": "What mitigation steps does OWASP recommend for Injection vulnerabilities?"
 }
 ```
 4. Click **"Execute"**
@@ -177,8 +177,27 @@ In the Swagger UI:
 Expected response format:
 ```json
 {
-  "answer": "Broken Access Control occurs when... [Source: owasp-top-10.pdf, Page: 5]",
-  "processing_time": 8.2
+  "answer": "OWASP recommends the following mitigation steps for Injection vulnerabilities:\n\n*   Use positive server-side input validation... [Source: owasp-top-10.pdf, Page: 15]",
+  "expanded_query": "What mitigation steps does OWASP recommend for Injection vulnerabilities? การป้องกัน, OWASP, Injection vulnerabilities, การป้องกันการโจมตี, ...",
+  "retrieved_docs": [
+    {
+      "source": "owasp-top-10.pdf",
+      "page": "15",
+      "score": "N/A"
+    },
+    {
+      "source": "owasp-top-10.pdf",
+      "page": "14",
+      "score": "N/A"
+    },
+    {
+      "source": ...,
+      "page": ...,
+      "score": ...
+    },
+    ...
+  ],
+  "processing_time": 422.75
 }
 ```
 
@@ -188,7 +207,7 @@ Linux / macOS:
 ```bash
 curl -X POST http://localhost:8000/chat \
   -H "Content-Type: application/json" \
-  -d '{"question": "What is Broken Access Control according to OWASP?"}'
+  -d '{"question": "What mitigation steps does OWASP recommend for Injection vulnerabilities?"}'
 ```
 
 Windows (PowerShell):
@@ -196,12 +215,12 @@ Windows (PowerShell):
 Invoke-RestMethod -Uri "http://localhost:8000/chat" `
   -Method POST `
   -ContentType "application/json" `
-  -Body '{"question": "What is Broken Access Control according to OWASP?"}'
+  -Body '{"question": "What mitigation steps does OWASP recommend for Injection vulnerabilities?"}'
 ```
 
 Windows (Command Prompt with curl):
 ```cmd
-curl -X POST http://localhost:8000/chat -H "Content-Type: application/json" -d "{\"question\": \"What is Broken Access Control according to OWASP?\"}"
+curl -X POST http://localhost:8000/chat -H "Content-Type: application/json" -d "{\"question\": \"What mitigation steps does OWASP recommend for Injection vulnerabilities?\"}"
 ```
 
 ### Useful Docker Commands
