@@ -20,7 +20,7 @@ class LLMClient:
     def __init__(self, model_name=None):
         base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
         self.expand_model_name = os.getenv("LLM_EXPAND_MODEL_NAME", "scb10x/typhoon2.1-gemma3-4b:latest")
-        self.generate_model_name = os.getenv("LLM_GENERATE_MODEL_NAME", "llama3.1:8b")
+        self.generate_model_name = os.getenv("LLM_GENERATE_MODEL_NAME", "qwen2.5:7b-instruct-q4_0")
         temperature = float(os.getenv("LLM_TEMPERATURE", "0.2"))
         timeout = float(os.getenv("LLM_TIMEOUT", "120.0"))
         
@@ -31,7 +31,7 @@ class LLMClient:
             base_url=base_url,
             temperature=temperature,
             keep_alive="1h",
-            num_predict=512,
+            num_predict=100,
             request_timeout=timeout
         )
 
@@ -41,46 +41,38 @@ class LLMClient:
             base_url=base_url,
             temperature=temperature,
             keep_alive="1h",
-            num_predict=512,
+            num_predict=350,
             request_timeout=timeout
         )
 
     def expand_query(self, query: str) -> str:
         logger.info(f"Expanding query: '{query}'")
         
-        system_prompt = """You are a Bilingual Search Query Optimizer.
-Your goal is to convert the user's query into a single string of space-separated keywords, prioritizing Thai translation followed by English technical terms.
+        system_prompt = """You are a Bilingual Search Query Optimizer for Thai-English cybersecurity queries.
 
-=== INSTRUCTIONS ===
+TASK: Convert user queries into alternating Thai-English keyword pairs for hybrid search.
 
-1. **Analyze**: Understand the core technical concepts of the query.
-2. **Translate to Thai**: 
-   - Translate the main concepts into Thai.
-   - Use both formal terms (e.g., "การโจมตีแบบปฏิเสธการให้บริการ") and common terms (e.g., "ยิงเซิร์ฟเวอร์").
-3. **Extract English Keywords**:
-   - Keep the original English technical terms.
-   - Add relevant acronyms (e.g., "DDoS") or standard synonyms.
-4. **Format**:
-   - Output **Thai Keywords first**, followed by **English Keywords**.
-   - Use **ONLY SPACES** as separators.
-   - **NO COMMAS**, NO pipes (|), NO special characters.
-   - **NO** explanations.
+RULES:
+1. Extract 2-6 core concepts from the query
+2. For each concept, provide:
+   - Thai translation (formal + colloquial terms)
+   - English technical term or acronym (eg. OWASP, MITRE ATT&CK, ...)
+3. Output format: <Thai1> <English1> <Thai2> <English2> [<Thai3> <English3>]
+4. Use ONLY spaces as separators (no commas, pipes, or special characters)
+5. **OUTPUT KEYWORDS ONLY** - NO explanations, NO reasoning, NO query repetition
 
-=== OUTPUT FORMAT ===
-<Thai Keyword 1> <Thai Keyword 2> <Thai Keyword 3> <English Keyword 1> <English Keyword 2> <English Keyword 3>
+EXAMPLES:
 
-=== EXAMPLES ===
+Input: "How to prevent SQL Injection?"
+Output: การป้องกันการโจมตีฐานข้อมูล SQL ช่องโหว่ความปลอดภัย Injection การป้องกัน Prevention
 
-Query: "How to prevent SQL Injection?"
-Output: การป้องกันการโจมตีฐานข้อมูล ช่องโหว่ความปลอดภัย การตรวจสอบข้อมูลนำเข้า SQL Injection Prevention Database Security Input Validation
+Input: "log retention requirements"
+Output: ข้อกำหนดการจัดเก็บล็อก Log ระยะเวลาเก็บข้อมูล Retention ข้อกำหนดตามกฎหมาย Compliance
 
-Query: "log retention requirements"
-Output: ข้อกำหนดการจัดเก็บข้อมูลจราจร ระยะเวลาเก็บข้อมูลจราจร พ.ร.บ.คอมพิวเตอร์ Log Retention Policy Compliance Audit Logs 90 days
+Input: "What is Cross-Site Scripting?"
+Output: การโจมตีแบบข้ามไซต์ Cross-Site ช่องโหว่ XSS Scripting
 
-Query: "What is Cross-Site Scripting?"
-Output: การโจมตีแบบข้ามไซต์ สคริปต์ข้ามไซต์ ช่องโหว่หน้าเว็บ Cross-Site Scripting XSS Web Vulnerability
-
-Now process this query:"""
+Query:"""
         
         prompt = ChatPromptTemplate.from_messages([
             ("system", system_prompt),
@@ -91,10 +83,12 @@ Now process this query:"""
         
         try:
             keywords = chain.invoke({"query": query})
-            keywords = keywords.replace('\n', ' ').replace('"', '').strip()
+            keywords = keywords.replace('\n', ' ').replace('"', '').replace('Output: ','') .strip()
             keywords = re.sub(r'(Here is|The translation|However).*', '', keywords, flags=re.IGNORECASE)
-            
-            expanded_query = f"{query} {keywords}"
+            # query = keywords.replace('?', '').strip()
+
+            # expanded_query = f"{query} {keywords}"
+            expanded_query = f"{keywords}"
             logger.info(f"Expanded: {expanded_query}")
             return expanded_query
         except Exception as e:
@@ -116,40 +110,26 @@ Now process this query:"""
             
             context_text += f"\n--- Document {i+1} (Source: {source}, Page: {page}) ---\n{content}\n"
 
-        system_prompt = """You are a Senior Cybersecurity Auditor and Compliance Specialist.
-Your task is to answer user questions based **EXCLUSIVELY** on the provided Context.
+        system_prompt = """You are a Cybersecurity Compliance Specialist answering questions using ONLY the provided Context.
 
-=== STRICT GUIDELINES ===
+CORE RULES:
+1. Base answers EXCLUSIVELY on Context - ignore all outside knowledge
+2. Cite every claim immediately: [Source: filename, Page: X]
+3. Output in ENGLISH only (translate Thai terms to English)
+4. If answer not in Context, respond: "I cannot find this information in the provided documents."
 
-1. **NO OUTSIDE KNOWLEDGE**: You must act as if you know NOTHING about cybersecurity other than what is written in the Context.
-2. **EVIDENCE-BASED**: Every single claim you make must be supported by a specific sentence in the Context.
-3. **LANGUAGE**: 
-   - Analyze documents in both Thai and English.
-   - **Output your final answer in ENGLISH ONLY.**
-   - Translate Thai concepts accurately to English technical terms.
+CITATION FORMAT:
+- Inline only - no reference sections
+- Single source: [Source: policy.pdf, Page: 5]
+- Multiple sources: [Source: doc1.pdf, Page: 3; Source: doc2.pdf, Page: 7]
+- Note conflicts explicitly when documents disagree
 
-=== CITATION RULES (CRITICAL) ===
+RESPONSE STRUCTURE:
+- Direct answer first
+- Support with bullet points if needed
+- Keep concise and professional
 
-- You MUST cite the source for every statement.
-- Format: `[Source: filename, Page: X]`
-- Place citations immediately after the sentence/phrase they support.
-- If multiple documents support a fact, list them all: `[Source: doc1.pdf, Page: 5; Source: doc2.pdf, Page: 8]`
-- **DO NOT** create a "References" section at the end. Citations must be inline.
-
-=== REASONING PROCESS ===
-
-1. Scan the Context for keywords related to: "{question}"
-2. If the Context contains conflicting information (e.g., Doc A says "Block port 80" but Doc B says "Allow port 80"), mention the conflict explicitly.
-3. If the Context does **NOT** contain the answer, reply exactly:
-   "I cannot find this information in the provided documents."
-
-=== RESPONSE STRUCTURE ===
-
-- **Direct Answer**: Start with a direct answer to the question.
-- **Key Details**: Use bullet points for readability.
-- **Conciseness**: Keep it professional and to the point.
-
-=== EXAMPLES (RESPONSE Follow these patterns) ===
+EXAMPLES:
 
 Example 1: Single Source (Thai to English)
 Context:
@@ -175,19 +155,7 @@ Context:
 Port 80 and 443 should be open for web traffic.
 
 Question: How do I configure the backup server?
-Answer: I cannot find this information in the provided documents.
-
-Example 4: Combining Facts
-Context:
---- Document 1 (Source: network.pdf, Page: 3) ---
-The DMZ isolates external services.
---- Document 2 (Source: admin_guide.pdf, Page: 10) ---
-Web servers must be placed in the DMZ.
-
-Question: Where should web servers be placed and why?
-Answer: Web servers must be located in the DMZ [Source: admin_guide.pdf, Page: 10]. This is done to isolate external services from the internal network [Source: network.pdf, Page: 3].
-
-=== END OF EXAMPLES ===
+Answer: I cannot find this information in the provided documents. **In this case, there's no need to enter a source files**
 
 Context:
 {context}

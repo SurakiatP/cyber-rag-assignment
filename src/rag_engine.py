@@ -15,6 +15,7 @@ from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import CrossEncoderReranker
 from langchain_community.cross_encoders import HuggingFaceCrossEncoder
 from pythainlp.tokenize import word_tokenize
+import torch
 
 logging.basicConfig(
     level=logging.INFO,
@@ -32,31 +33,49 @@ class RAGEngine:
         self.faiss_path = os.path.join(self.db_path, "faiss_index")
         self.bm25_path = os.path.join(self.db_path, "bm25_retriever.pkl")
         
-        self.embedding_model_name = os.getenv("EMBEDDING_MODEL_NAME", "BAAI/bge-m3")
-        self.embedding_device = os.getenv("EMBEDDING_DEVICE", "cpu")
-        self.reranker_model_name = os.getenv("RERANKER_MODEL_NAME", "BAAI/bge-reranker-v2-m3")
+        self.embedding_model_name = os.getenv("EMBEDDING_MODEL_NAME", "intfloat/multilingual-e5-small")
+        # Auto-detect device: use CUDA if available, else CPU
+        self.embedding_device = os.getenv("EMBEDDING_DEVICE", "cuda" if torch.cuda.is_available() else "cpu")
+        self.reranker_model_name = os.getenv("RERANKER_MODEL_NAME", "BAAI/bge-reranker-base")
         
         self.chunk_size = int(os.getenv("CHUNK_SIZE", "1100"))
         self.chunk_overlap = int(os.getenv("CHUNK_OVERLAP", "200"))
-        self.retrieval_k = int(os.getenv("RETRIEVAL_K", "20"))
-        self.rerank_top_n = int(os.getenv("RERANK_TOP_N", "7"))
+        self.retrieval_k = int(os.getenv("RETRIEVAL_K", "15"))
+        self.rerank_top_n = int(os.getenv("RERANK_TOP_N", "5"))
 
         if not os.path.exists(self.db_path):
             os.makedirs(self.db_path)
 
         logger.info(f"Loading Embedding Model ({self.embedding_model_name})...")
+        logger.info(f"Using device: {self.embedding_device}")
+        
+        # Optimize batch size based on device
+        batch_size = 64 if self.embedding_device == 'cuda' else 32
+        
         self.embeddings = HuggingFaceEmbeddings(
             model_name=self.embedding_model_name,
             model_kwargs={'device': self.embedding_device}, 
-            encode_kwargs={'normalize_embeddings': True}
+            encode_kwargs={
+                'normalize_embeddings': True,
+                'batch_size': batch_size
+            }
         )
         
         logger.info(f"Loading Reranker Model ({self.reranker_model_name})...")
-        self.reranker_model = HuggingFaceCrossEncoder(model_name=self.reranker_model_name)
+        
+        # Use HuggingFaceCrossEncoder with device specification
+        device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        
+        self.reranker_model = HuggingFaceCrossEncoder(
+            model_name=self.reranker_model_name,
+            model_kwargs={'device': device}
+        )
+        
+        logger.info(f"Reranker using device: {device}")
         
         self.vector_store = None
         self.bm25_retriever = None
-        self.compression_retriever = None 
+        self.compression_retriever = None
 
     def load_documents_from_json(self, json_path: str) -> List[Document]:
         if not os.path.exists(json_path):
@@ -129,7 +148,7 @@ class RAGEngine:
         if not self.vector_store or not self.bm25_retriever:
             raise ValueError("Indexes not loaded!")
 
-        faiss_retriever = self.vector_store.as_retriever(search_kwargs={"k": 20})
+        faiss_retriever = self.vector_store.as_retriever(search_kwargs={"k": self.retrieval_k})
         self.bm25_retriever.k = self.retrieval_k
 
         ensemble_retriever = EnsembleRetriever(

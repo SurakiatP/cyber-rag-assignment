@@ -15,10 +15,8 @@ class TestStrictGrounding(unittest.TestCase):
         self.client = LLMClient()
 
     def test_out_of_scope_knowledge(self):
-        # Test: General knowledge not in PDF (Ransomware is excluded per 3_REFERENCE.md)
         q = "How does Ransomware encrypt files?"
         
-        # Mock Documents irrelevant to Ransomware
         mock_docs = [Document(page_content="Web security covers logging and firewall.", metadata={"source": "thai.pdf", "page": "1"})]
         
         ans = self.client.generate_answer(q, mock_docs)
@@ -29,7 +27,6 @@ class TestStrictGrounding(unittest.TestCase):
                         "Model failed to refuse out-of-domain question.")
 
     def test_fake_citation_prevention(self):
-        # Test: Fake detail (Section 999)
         q = "What does Section 999 say about passwords?"
         mock_docs = [Document(page_content="Section 1 covers scope. Section 5 covers governance.", metadata={"source": "thai.pdf", "page": "1"})]
         
