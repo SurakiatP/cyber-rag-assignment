@@ -7,43 +7,32 @@ services:
     ports:
       - "11434:11434"
     volumes:
-      - ollama_storage:/root/.ollama
-    environment:
-      - OLLAMA_HOST=0.0.0.0
+      - ollama_data:/root/.ollama
     healthcheck:
-      test: ["CMD-SHELL", "ollama list | grep 'typhoon2.1-gemma3-4b' || ollama pull scb10x/typhoon2.1-gemma3-4b:latest"]
-      interval: 30s
-      timeout: 300s
-      retries: 3
-      start_period: 60s
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     restart: unless-stopped
-    networks:
-      - rag-network
 
   rag-api:
     build: .
-    container_name: cyber-rag-app
+    container_name: cyber-rag-api
     ports:
       - "8000:8000"
-    volumes:
-      - ./dataset:/app/dataset
-      - ./database:/app/database
-      - ./output:/app/output
-      - ./.env:/app/.env
     environment:
       - OLLAMA_BASE_URL=http://ollama:11434
-    env_file:
-      - .env
+      - EMBEDDING_DEVICE=cpu
+      - LLM_EXPAND_MODEL_NAME=qwen2.5:1.5b
+      - LLM_GENERATE_MODEL_NAME=qwen2.5:7b-instruct-q4_0
+    volumes:
+      - ./dataset:/app/dataset:ro
+      - ./database:/app/database
+      - ./output:/app/output
     depends_on:
       ollama:
         condition: service_healthy
     restart: unless-stopped
-    networks:
-      - rag-network
-
-networks:
-  rag-network:
-    driver: bridge
 
 volumes:
-  ollama_storage:
+  ollama_data:

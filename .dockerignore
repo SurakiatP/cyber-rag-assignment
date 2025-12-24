@@ -19,7 +19,6 @@ pip-delete-this-directory.txt
 
 dataset/
 database/
-output/
 
 .DS_Store
 Thumbs.db
