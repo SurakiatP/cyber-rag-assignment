@@ -6,7 +6,6 @@ __pycache__/
 !.env.example
 # database/
 # dataset/
-*.pdf
 *.faiss
 *.pkl
 .python-version
