@@ -1,0 +1,478 @@
+{
+  "metadata": {
+    "evaluation_date": "2025-12-24T14:55:05.729115",
+    "total_queries": 10,
+    "api_url": "http://localhost:8000/chat",
+    "evaluator": "Manual Evaluation",
+    "notes": "RAG system evaluation with hybrid retrieval (BM25 + FAISS) and reranking"
+  },
+  "results": [
+    {
+      "id": "Q1",
+      "question": "What is the number one vulnerability in the OWASP Top 10: 2021 list?",
+      "document_source": "owasp-top-10.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "A01:2021",
+        "Broken Access Control"
+      ],
+      "difficulty": "easy",
+      "response": "I cannot find this information in the provided documents.",
+      "citations": [
+        {
+          "document": "mitre-attack-philosophy-2020.pdf",
+          "page": "31b",
+          "score": "N/A"
+        },
+        {
+          "document": "owasp-top-10.pdf",
+          "page": "13",
+          "score": "N/A"
+        },
+        {
+          "document": "owasp-top-10.pdf",
+          "page": "15",
+          "score": "N/A"
+        },
+        {
+          "document": "mitre-attack-philosophy-2020.pdf",
+          "page": "30b",
+          "score": "N/A"
+        },
+        {
+          "document": "owasp-top-10.pdf",
+          "page": "36",
+          "score": "N/A"
+        }
+      ],
+      "response_time_seconds": 145.28,
+      "manual_scores": {
+        "faithfulness": 80,
+        "citation_accuracy": 60,
+        "relevance": 3,
+        "completeness": 3
+      }
+    },
+    {
+      "id": "Q2",
+      "question": "What does the 'Tactics' component represent in the MITRE ATT&CK framework?",
+      "document_source": "mitre-attack-philosophy-2020.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Adversary's tactical objective",
+        "The reason for performing an action",
+        "The 'why'"
+      ],
+      "difficulty": "easy",
+      "response": "The 'Tactics' component represents the adversary's tactical objectives or reasons for performing an action during an attack. It categorizes techniques and sub-techniques into standard notations such as persisting, discovering information, moving laterally, executing files, and exfiltrating data [Source: mitre-attack-philosophy-2020.pdf, Page: 8b]. Tactics serve as useful contextual tags within the ATT&CK framework, associating techniques or sub-techniques with one or more tactic categories based on the different outcomes achievable through their use.",
+      "citations": [
+        {
+          "document": "mitre-attack-philosophy-2020.pdf",
+          "page": "1b",
+          "score": "N/A"
+        },
+        {
+          "document": "mitre-attack-philosophy-2020.pdf",
+          "page": "8b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "33b",
+          "score": "N/A"
+        },
+        {
+          "document": "mitre-attack-philosophy-2020.pdf",
+          "page": "7a",
+          "score": "N/A"
+        },
+        {
+          "document": "mitre-attack-philosophy-2020.pdf",
+          "page": "7a",
+          "score": "N/A"
+        }
+      ],
+      "response_time_seconds": 180.16,
+      "manual_scores": {
+        "faithfulness": 95,
+        "citation_accuracy": 100,
+        "relevance": 5,
+        "completeness": 5
+      }
+    },
+    {
+      "id": "Q3",
+      "question": "List the 3 fundamental security characteristics mentioned in the Thailand Web Security Standard.",
+      "document_source": "thailand-web-security-standard-2025.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Confidentiality",
+        "Integrity",
+        "Availability"
+      ],
+      "difficulty": "easy",
+      "response": "The three fundamental security characteristics mentioned in the Thailand Web Security Standard are:\n- Confidentiality [Source: thailand-web-security-standard-2025.pdf, Page: 52b]\n- Integrity [Source: thailand-web-security-standard-2025.pdf, Page: 52b]\n- Availability [Source: thailand-web-security-standard-2025.pdf, Page: 52b]",
+      "citations": [
+        {
+          "document": "mitre-attack-philosophy-2020.pdf",
+          "page": "24b",
+          "score": "N/A"
+        },
+        {
+          "document": "mitre-attack-philosophy-2020.pdf",
+          "page": "21b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "52b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "20b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "2b",
+          "score": "N/A"
+        }
+      ],
+      "response_time_seconds": 174.95,
+      "manual_scores": {
+        "faithfulness": 100,
+        "citation_accuracy": 100,
+        "relevance": 5,
+        "completeness": 5
+      }
+    },
+    {
+      "id": "Q4",
+      "question": "Name one prevention method for 'A04:2021 - Insecure Design' from the OWASP document.",
+      "document_source": "owasp-top-10.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Secure development lifecycle",
+        "Threat modeling",
+        "Secure design patterns"
+      ],
+      "difficulty": "easy",
+      "response": "I cannot find this information in the provided documents. [Source: thailand-web-security-standard-2025.pdf, Page: 12b; Source: thailand-web-security-standard-2025.pdf, Page: 11b; Source: thailand-web-security-standard-2025.pdf, Page: 66b; Source: thailand-web-security-standard-2025.pdf, Page: 3b; Source: thailand-web-security-standard-2025.pdf, Page: 62b]",
+      "citations": [
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "12b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "11b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "66b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "3b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "62b",
+          "score": "N/A"
+        }
+      ],
+      "response_time_seconds": 179.87,
+      "manual_scores": {
+        "faithfulness": 85,
+        "citation_accuracy": 70,
+        "relevance": 3,
+        "completeness": 3
+      }
+    },
+    {
+      "id": "Q5",
+      "question": "According to the Thailand Web Security Standard, who constitutes the '3rd Line of Defense'?",
+      "document_source": "thailand-web-security-standard-2025.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Internal Audit",
+        "Internal audit department"
+      ],
+      "difficulty": "medium",
+      "response": "According to the Thailand Web Security Standard, the 3rd Line of Defense consists of internal audit units. These units are responsible for assessing the adequacy of various security measures and operate under the supervision of external auditors and government agencies [Source: thailand-web-security-standard-2025.pdf, Page: 18b].",
+      "citations": [
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "18b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "3b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "66b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "2b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "45b",
+          "score": "N/A"
+        }
+      ],
+      "response_time_seconds": 175.42,
+      "manual_scores": {
+        "faithfulness": 100,
+        "citation_accuracy": 100,
+        "relevance": 5,
+        "completeness": 5
+      }
+    },
+    {
+      "id": "Q6",
+      "question": "In MITRE ATT&CK, what are 'Sub-techniques' used for?",
+      "document_source": "mitre-attack-philosophy-2020.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Describe more specific behavior",
+        "Lower level than techniques",
+        "Provide more detail"
+      ],
+      "difficulty": "easy",
+      "response": "In MITRE ATT&CK, Sub-techniques are used to provide more detailed information about the tactics and techniques employed by adversaries. They break down high-level techniques into specific methods or steps that an adversary might use during an attack [Source: mitre-attack-philosophy-2020.pdf, Page: 11b].\n\n- Sub-techniques help in identifying and understanding the nuances of how tactics are executed.\n- They assist network defenders in developing more targeted detection strategies by providing specific indicators or behaviors to look for.",
+      "citations": [
+        {
+          "document": "mitre-attack-philosophy-2020.pdf",
+          "page": "11b",
+          "score": "N/A"
+        },
+        {
+          "document": "mitre-attack-philosophy-2020.pdf",
+          "page": "10b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "33b",
+          "score": "N/A"
+        },
+        {
+          "document": "mitre-attack-philosophy-2020.pdf",
+          "page": "1a",
+          "score": "N/A"
+        },
+        {
+          "document": "mitre-attack-philosophy-2020.pdf",
+          "page": "7a",
+          "score": "N/A"
+        }
+      ],
+      "response_time_seconds": 173.84,
+      "manual_scores": {
+        "faithfulness": 92,
+        "citation_accuracy": 95,
+        "relevance": 5,
+        "completeness": 4
+      }
+    },
+    {
+      "id": "Q7",
+      "question": "What specific log information should be recorded according to OWASP A09:2021 to help identify suspicious accounts?",
+      "document_source": "owasp-top-10.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Login failures",
+        "Access control failures",
+        "Sufficient user context"
+      ],
+      "difficulty": "medium",
+      "response": "I cannot find this information in the provided documents. [Source: thailand-web-security-standard-2025.pdf, Page: 35b; Source: thailand-web-security-standard-2025.pdf, Page: 34b; Source: thailand-web-security-standard-2025.pdf, Page: 66b; Source: thailand-web-security-standard-2025.pdf, Page: 63b; Source: thailand-web-security-standard-2025.pdf, Page: 4b]",
+      "citations": [
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "35b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "34b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "66b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "63b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "4b",
+          "score": "N/A"
+        }
+      ],
+      "response_time_seconds": 192.78,
+      "manual_scores": {
+        "faithfulness": 80,
+        "citation_accuracy": 65,
+        "relevance": 3,
+        "completeness": 3
+      }
+    },
+    {
+      "id": "Q8",
+      "question": "How often should a 'High-change Database' be backed up incrementally according to the Thailand Web Security Standard?",
+      "document_source": "thailand-web-security-standard-2025.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Every day",
+        "Daily"
+      ],
+      "difficulty": "easy",
+      "response": "A 'High-change Database' should be backed up incrementally every day [Source: thailand-web-security-standard-2025.pdf, Page: 21b]. \n\nSupport:\n- Full backup is scheduled for a weekly basis.\n- Incremental backups are required daily to capture changes since the last full backup.",
+      "citations": [
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "21b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "21b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "62b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "58b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "66b",
+          "score": "N/A"
+        }
+      ],
+      "response_time_seconds": 206.64,
+      "manual_scores": {
+        "faithfulness": 100,
+        "citation_accuracy": 100,
+        "relevance": 5,
+        "completeness": 5
+      }
+    },
+    {
+      "id": "Q9",
+      "question": "List two examples of 'Security Misconfiguration' provided in OWASP A05:2021.",
+      "document_source": "owasp-top-10.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Unnecessary features enabled",
+        "Default accounts unchanged",
+        "Missing security hardening",
+        "Error handling reveals stack traces"
+      ],
+      "difficulty": "easy",
+      "response": "I cannot find this information in the provided documents.",
+      "citations": [
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "62b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "66b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "3b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "67b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "35b",
+          "score": "N/A"
+        }
+      ],
+      "response_time_seconds": 165.78,
+      "manual_scores": {
+        "faithfulness": 85,
+        "citation_accuracy": 70,
+        "relevance": 3,
+        "completeness": 3
+      }
+    },
+    {
+      "id": "Q10",
+      "question": "What is the primary perspective used by the MITRE ATT&CK model?",
+      "document_source": "mitre-attack-philosophy-2020.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Adversary's perspective",
+        "Attacker's point of view"
+      ],
+      "difficulty": "easy",
+      "response": "The primary perspective used by the MITRE ATT&CK model is from an attacker's viewpoint [Source: mitre-attack-philosophy-2020.pdf, Page: 7]. \n\n- The ATT&CK Matrix and methodology are designed to reflect how attackers operate and exploit systems [Source: mitre-attack-philosophy-2020.pdf, Page: 6; Source: thailand-web-security-standard-2025.pdf, Page: 33b].",
+      "citations": [
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "33b",
+          "score": "N/A"
+        },
+        {
+          "document": "thailand-web-security-standard-2025.pdf",
+          "page": "26b",
+          "score": "N/A"
+        },
+        {
+          "document": "mitre-attack-philosophy-2020.pdf",
+          "page": "7a",
+          "score": "N/A"
+        },
+        {
+          "document": "mitre-attack-philosophy-2020.pdf",
+          "page": "7a",
+          "score": "N/A"
+        },
+        {
+          "document": "mitre-attack-philosophy-2020.pdf",
+          "page": "7a",
+          "score": "N/A"
+        }
+      ],
+      "response_time_seconds": 135.91,
+      "manual_scores": {
+        "faithfulness": 95,
+        "citation_accuracy": 90,
+        "relevance": 5,
+        "completeness": 5
+      }
+    }
+  ]
+}

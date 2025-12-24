@@ -1,0 +1,237 @@
+{
+  "queries": [
+    {
+      "id": "Q1",
+      "question": "What is the number one vulnerability in the OWASP Top 10: 2021 list?",
+      "document_source": "owasp-top-10.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "A01:2021",
+        "Broken Access Control"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q2",
+      "question": "What does the 'Tactics' component represent in the MITRE ATT&CK framework?",
+      "document_source": "mitre-attack-philosophy-2020.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Adversary's tactical objective",
+        "The reason for performing an action",
+        "The 'why'"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q3",
+      "question": "List the 3 fundamental security characteristics mentioned in the Thailand Web Security Standard.",
+      "document_source": "thailand-web-security-standard-2025.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Confidentiality",
+        "Integrity",
+        "Availability"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q4",
+      "question": "Name one prevention method for 'A04:2021 - Insecure Design' from the OWASP document.",
+      "document_source": "owasp-top-10.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Secure development lifecycle",
+        "Threat modeling",
+        "Secure design patterns"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q5",
+      "question": "According to the Thailand Web Security Standard, who constitutes the '3rd Line of Defense'?",
+      "document_source": "thailand-web-security-standard-2025.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Internal Audit",
+        "Internal audit department"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q6",
+      "question": "In MITRE ATT&CK, what are 'Sub-techniques' used for?",
+      "document_source": "mitre-attack-philosophy-2020.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Describe more specific behavior",
+        "Lower level than techniques",
+        "Provide more detail"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q7",
+      "question": "What specific log information should be recorded according to OWASP A09:2021 to help identify suspicious accounts?",
+      "document_source": "owasp-top-10.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Login failures",
+        "Access control failures",
+        "Sufficient user context"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q8",
+      "question": "How often should a 'High-change Database' be backed up incrementally according to the Thailand Web Security Standard?",
+      "document_source": "thailand-web-security-standard-2025.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Every day",
+        "Daily"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q9",
+      "question": "List two examples of 'Security Misconfiguration' provided in OWASP A05:2021.",
+      "document_source": "owasp-top-10.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Unnecessary features enabled",
+        "Default accounts unchanged",
+        "Missing security hardening",
+        "Error handling reveals stack traces"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q10",
+      "question": "What is the primary perspective used by the MITRE ATT&CK model?",
+      "document_source": "mitre-attack-philosophy-2020.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Adversary's perspective",
+        "Attacker's point of view"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q11",
+      "question": "Which type of TLS Certificate provides the highest level of trust according to the Thailand Web Security Standard?",
+      "document_source": "thailand-web-security-standard-2025.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Extended Validation",
+        "EV"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q12",
+      "question": "What is a recommended way to prevent 'Identification and Authentication Failures' regarding passwords in OWASP A07:2021?",
+      "document_source": "owasp-top-10.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Check against top 10,000 worst passwords",
+        "Implement Multi-Factor Authentication",
+        "No default credentials"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q13",
+      "question": "What is the first step recommended when decommissioning a website in the Thailand Web Security Standard?",
+      "document_source": "thailand-web-security-standard-2025.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Notify users",
+        "Announce service termination"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q14",
+      "question": "In MITRE ATT&CK, what does the object 'Group' represent?",
+      "document_source": "mitre-attack-philosophy-2020.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Adversary groups",
+        "Threat groups",
+        "Actor groups",
+        "Campaigns"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q15",
+      "question": "What is the main cause of 'Server-Side Request Forgery (SSRF)' vulnerabilities?",
+      "document_source": "owasp-top-10.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Fetching a remote resource without validating the user-supplied URL",
+        "Unvalidated input"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q16",
+      "question": "How many days is the recommended frequency for 'Vulnerability Assessment' scanning in the Thailand Web Security Standard?",
+      "document_source": "thailand-web-security-standard-2025.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Every 30 days",
+        "30 days"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q17",
+      "question": "According to the Thailand Web Security Standard, what must be done with 'Asset Management'?",
+      "document_source": "thailand-web-security-standard-2025.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Create an asset inventory",
+        "Record asset details",
+        "Update asset register"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q18",
+      "question": "What information is found in the 'Procedure Examples' section of a MITRE ATT&CK technique?",
+      "document_source": "mitre-attack-philosophy-2020.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Observed in-the-wild use",
+        "How adversaries use the technique",
+        "Specific implementations"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q19",
+      "question": "What is one thing you should NEVER do with sensitive data to prevent 'Cryptographic Failures' (OWASP A02)?",
+      "document_source": "owasp-top-10.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "Store sensitive data unnecessarily",
+        "Transmit in clear text",
+        "Use weak algorithms"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q20",
+      "question": "What concept does the Thailand Web Security Standard suggest for integrating security into software development?",
+      "document_source": "thailand-web-security-standard-2025.pdf",
+      "query_type": "specific",
+      "expected_topics": [
+        "DevSecOps",
+        "Secure Software Development"
+      ],
+      "difficulty": "easy"
+    }
+  ]
+}
