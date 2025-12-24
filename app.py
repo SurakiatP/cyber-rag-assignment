@@ -52,7 +52,7 @@ async def startup_event():
     rag_engine = RAGEngine()
     llm_client = LLMClient() 
     
-    json_path = os.path.join(os.getenv("OUTPUT_PATH", "output/"), "ingested_documents.json")
+    json_path = os.path.join(os.getenv("OUTPUT_PATH", "ingested_data/"), "ingested_documents.json")
     
     if os.path.exists(json_path) and not rag_engine.load_index():
         logger.info("Index not found on disk. Building from JSON...")
