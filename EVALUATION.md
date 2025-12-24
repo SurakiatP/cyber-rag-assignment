@@ -144,21 +144,70 @@ API ENDPOINT: POST http://localhost:8000/docs#/default/chat_endpoint_chat_post C
 >Request:
 ```json
 {
-"question": "What is the difference between a Tactic and a Technique in MITRE ATT&CK"
+"question": "What is the difference between a Tactic and a Technique in MITRE ATT&CK?"
 }
 ```
 ### Output (JSON Format)
 ![test case 3.2](IMAGE_README/test_case3-2.png)
+>Response (Summary):
+
+- Answer: Clear distinction with examples
+- Citations: [mitre-attack-philosophy-2020.pdf, Page: 9]
+- Retrieved Docs: 5 chunks (4 Thailand, 1 MITRE)
+- Processing Time: 80.31 seconds
+
+>Key Points in Answer:
+
+- Tactics: High-level adversary behavior categories
+- Techniques: Specific methods within tactics
+- Example: Initial Access (Tactic) → Exploit Public Vulnerability (Technique)
+
+
 
 # HALLUCINATION PREVENTION TEST CASES
 
 ## HALLUCINATION TEST 1:
 ### Input (JSON Format)
 ![hullucination case1.1](IMAGE_README/hallucinate_case1-1.png)
+>Request:
+```json
+{
+"question": "How does Ransomware encrypt files?"
+}
+```
 ### Output (JSON Format)
 ![hullucination case1.2](IMAGE_README/hallucinate_case1-2.png)
+>Response:
+- "I cannot find this information in the provided documents."
+
 ## HALLUCINATION TEST 2:
 ### Input (JSON Format)
 ![hullucination case2.1](IMAGE_README/hallucinate_case2-1.png)
+>Request:
+```json
+{
+"question": "Who is the current Prime Minister 
+of Thailand?"
+}
+```
 ### Output (JSON Format)
 ![hullucination case2.2](IMAGE_README/hallucinate_case2-2.png)
+>Response:
+- "I cannot find this information in the provided documents."
+
+---
+
+# CONCLUSION
+## OVERALL ASSESSMENT:
+The Cyber-RAG system demonstrates STRONG PRODUCTION-READY PERFORMANCE across
+
+all evaluation dimensions. With 91.20% faithfulness and 85.00% citation
+accuracy, the system successfully maintains strict grounding in source
+documents while preventing hallucination.
+
+## KEY ACHIEVEMENTS:
+
+- ZERO HALLUCINATION: System correctly refuses to answer out-of-scope questions rather than generating fabricated information
+- MULTILINGUAL EXCELLENCE: Perfect 100% scores across all metrics for Thai language documents (Thailand Web Security Standard)
+- ROBUST RETRIEVAL: Hybrid approach (BM25 + FAISS) with reranking achieves 4.20/5 relevance and 4.10/5 completeness
+- FULL TRACEABILITY: Citation system provides precise document and page references for every claim
