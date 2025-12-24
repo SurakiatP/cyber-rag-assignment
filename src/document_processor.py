@@ -181,7 +181,7 @@ if __name__ == "__main__":
     print("\n--- Starting Ingestion Test ---")
     processor = DocumentProcessor()
     
-    output_dir = "output"
+    output_dir = "ingested_data"
     output_file = os.path.join(output_dir, "ingested_documents.json")
 
     if not os.path.exists(output_dir):

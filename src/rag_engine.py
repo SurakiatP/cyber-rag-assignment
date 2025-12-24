@@ -173,7 +173,7 @@ class RAGEngine:
 
 if __name__ == "__main__":
     engine = RAGEngine()
-    json_input = "output/ingested_documents.json"
+    json_input = "ingested_data/ingested_documents.json"
     
     if not engine.load_index():
         print("\nBuilding new index from JSON...")
