@@ -1,27 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# Database
+database/
+*.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
 # Git
-.git
+.git/
 .gitignore
 
-# Python Cache
-__pycache__
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-.venv/
-pip-log.txt
-pip-delete-this-directory.txt
+# Documentation
+*.md
+!README.md
+IMAGE_README/
 
-.env
-.env.example
+# Tests
+tests/
+*.log
 
-dataset/
-database/
-
+# OS
 .DS_Store
 Thumbs.db
 
+# Docker
 Dockerfile
 docker-compose.yml
+.dockerignore
