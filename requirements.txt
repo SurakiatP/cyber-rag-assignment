@@ -18,7 +18,7 @@ httpx
 pydantic>=2.0
 numpy<2.0.0
 python-dotenv
---index-url https://download.pytorch.org/whl/cu118
+--extra-index-url https://download.pytorch.org/whl/cu118
 torch>=2.0.0
 torchvision>=0.15.0
 torchaudio>=2.0.0
