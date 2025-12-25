@@ -8,31 +8,66 @@ services:
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
-    healthcheck:
-      test: ["CMD", "ollama", "list"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s
 
-  rag-api:
+  cyber-rag:
     build: .
-    container_name: cyber-rag-api
+    container_name: cyber-rag-app
     ports:
       - "8000:8000"
-    environment:
-      - OLLAMA_BASE_URL=http://ollama:11434
-      - EMBEDDING_DEVICE=cpu
-      - LLM_EXPAND_MODEL_NAME=qwen2.5:1.5b
-      - LLM_GENERATE_MODEL_NAME=qwen2.5:7b-instruct-q4_0
     volumes:
       - ./dataset:/app/dataset:ro
       - ./database:/app/database
-      - ./output:/app/output
+      - ./ingested_data:/app/ingested_data
+      - ./src:/app/src:ro
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - LLM_EXPAND_MODEL_NAME=scb10x/typhoon2.1-gemma3-4b:latest
+      - LLM_GENERATE_MODEL_NAME=qwen2.5:7b-instruct-q4_0
+      - LLM_TEMPERATURE=0.2
+      - LLM_TIMEOUT=120.0
+      - EMBEDDING_DEVICE=cuda
+      - EMBEDDING_MODEL_NAME=intfloat/multilingual-e5-small
+      - RERANKER_MODEL_NAME=BAAI/bge-reranker-base
+      - CHUNK_SIZE=1100
+      - CHUNK_OVERLAP=200
+      - RETRIEVAL_K=15
+      - RERANK_TOP_N=5
+      - DATASET_PATH=dataset/
+      - DATABASE_PATH=database/
+      - OUTPUT_PATH=ingested_data/
     depends_on:
-      ollama:
-        condition: service_healthy
+      - ollama
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
 
 volumes:
   ollama_data:
+    driver: local
