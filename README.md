@@ -195,7 +195,7 @@ curl -X POST http://localhost:8000/chat \
   -d '{"question": "What is OWASP Top 10?"}'
 ```
 
-**Expected Response** (2-3 minutes):
+**Expected Response** (1-3 minutes):
 ```json
 {
   "answer": "OWASP Top 10 is a standard awareness document for web application security...",
@@ -207,7 +207,7 @@ curl -X POST http://localhost:8000/chat \
       "score": "N/A"
     }
   ],
-  "processing_time": 125.3
+  "processing_time": 53.3
 }
 ```
 
