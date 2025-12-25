@@ -56,7 +56,9 @@ Result: ALL METRICS PASS
 ## API USAGE EXAMPLES
 >http://localhost:8000/docs#/default/chat_endpoint_chat_post <- "This link will only work after you have started the system as instructed in README.md."
 
-API ENDPOINT: POST http://localhost:8000/docs#/default/chat_endpoint_chat_post Content-Type: application/json
+>API ENDPOINT: POST http://localhost:8000/chat
+
+>Interactive Docs: http://localhost:8000/docs
 
 ### REQUEST FORMAT:
 ```json
