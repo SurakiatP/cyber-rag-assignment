@@ -400,3 +400,11 @@ cat tests/evaluation_results.json
 
 - LinkedIn: [Surakiat Kansa-ard](https://www.linkedin.com/in/surakiat-kansa-ard-171942351/)
 - GitHub: [SurakiatP](https://github.com/SurakiatP)
+
+**Skills Demonstrated:**
+- RAG system design and implementation
+- LLM integration (Ollama, LangChain)
+- Hybrid search (BM25 + FAISS)
+- Docker containerization
+- API development (FastAPI)
+- Evaluation & testing methodology
