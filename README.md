@@ -253,7 +253,8 @@ environment:
 # Download from https://ollama.com
 # Or use installer:
 curl -fsSL https://ollama.com/install.sh | sh  # Linux/Mac
-# Windows: Download installer from website -> https://ollama.com/download/windows
+# Windows: Download installer from website
+https://ollama.com/download/windows
 ```
 
 **2. Pull Required Models**
