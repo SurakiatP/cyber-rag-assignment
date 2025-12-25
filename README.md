@@ -319,6 +319,46 @@ RERANK_TOP_N=5
 - Saves to `ingested_documents.json`
 - Ready in 10-30 minutes
 
+### Access Points
+
+Once running, access:
+
+| Endpoint | URL | Purpose |
+|----------|-----|---------|
+| **API** | http://localhost:8000 | Main API endpoint |
+| **Interactive Docs** | http://localhost:8000/docs | Swagger UI for testing |
+| **Health Check** | http://localhost:8000/health | Service status |
+
+### Test Query
+
+**Windows PowerShell:**
+```powershell
+$body = @{question = "What is OWASP Top 10?"} | ConvertTo-Json
+Invoke-RestMethod -Uri "http://localhost:8000/chat" -Method POST -ContentType "application/json" -Body $body
+```
+
+**Linux/Mac:**
+```bash
+curl -X POST http://localhost:8000/chat \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What is OWASP Top 10?"}'
+```
+
+**Expected Response** (1-3 minutes):
+```json
+{
+  "answer": "OWASP Top 10 is a standard awareness document for web application security...",
+  "expanded_query": "OWASP Top 10 สิบอันดับความเสี่ยง web security vulnerabilities",
+  "retrieved_docs": [
+    {
+      "source": "owasp-top-10.pdf",
+      "page": "5",
+      "score": "N/A"
+    }
+  ],
+  "processing_time": 53.3
+}
+```
 ---
 
 ## Evaluation Metrics
