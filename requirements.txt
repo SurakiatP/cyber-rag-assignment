@@ -1,3 +1,11 @@
+# PyTorch (GPU support) - CUDA 11.8 for older GPUs (GTX 1050 Ti, etc.)
+# Install separately BEFORE other packages:
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# Note: Do NOT include PyTorch here as it should be installed separately
+# torch>=2.0.0
+# torchvision>=0.15.0
+# torchaudio>=2.0.0
 fastapi>=0.109.0
 uvicorn[standard]>=0.27.0
 langchain==0.2.6
@@ -18,9 +26,6 @@ httpx
 pydantic>=2.0
 numpy<2.0.0
 python-dotenv
---extra-index-url https://download.pytorch.org/whl/cu124
-# --extra-index-url https://download.pytorch.org/whl/cu118
-torch>=2.0.0
-torchvision>=0.15.0
-torchaudio>=2.0.0
+
+
 
