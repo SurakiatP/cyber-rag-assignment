@@ -10,7 +10,10 @@ RUN apt-get update && apt-get install -y \
 # Copy requirements first for better caching
 COPY requirements.txt .
 
-# Install Python dependencies
+# Install PyTorch with CUDA 11.8 FIRST
+RUN pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# Install other dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
