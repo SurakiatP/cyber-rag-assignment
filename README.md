@@ -275,15 +275,27 @@ python -m venv .venv
 # Activate (Linux/Mac)
 source .venv/bin/activate
 
-# 2. Install dependencies
+# 2. Install PyTorch FIRST (CUDA 11.8 for GTX 1050 Ti and older GPUs)
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# 3. Install other dependencies
 pip install -r requirements.txt
 
-# 3. Create .env file (optional - defaults work)
+# 4. Create .env file (optional - defaults work)
 cp .env.example .env
 
-# 4. Run application
+# 5. Run application
 python app.py
 ```
+**Recommended Settings by GPU:**
+
+| GPU | EMBEDDING_DEVICE | PyTorch Version |
+|-----|------------------|-----------------|
+| GTX 1050 Ti, 1060, 1070 | `cuda` | CUDA 11.8 ✓ |
+| RTX 2060, 2070, 2080 | `cuda` | CUDA 12.4+ |
+| RTX 3060, 3070, 3080 | `cuda` | CUDA 12.4+ |
+| RTX 4060, 4070, 4080 | `cuda` | CUDA 12.4+ |
+
 
 ### Configuration (.env)
 
